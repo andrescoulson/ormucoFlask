@@ -1,5 +1,5 @@
 POSTGRES = {
-    'user': 'postgres',
+    'user': 'root',
     'pw': 'root',
     'db': 'ormuco',
     'host': 'localhost',
