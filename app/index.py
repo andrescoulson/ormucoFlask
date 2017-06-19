@@ -3,6 +3,7 @@ from flask import render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import psycopg2
 from sqlalchemy.exc import InvalidRequestError, SQLAlchemyError
+from sqlalchemy.orm.exc import DetachedInstanceError
 
 from database import db, Datos
 import config
@@ -29,11 +30,13 @@ def hello():
             db.session.commit()
             dato = Datos.query.all()
             return render_template('index.html', dato=dato)
-        except (InvalidRequestError):
-            print db.session.rollback()
+        except (InvalidRequestError, DetachedInstanceError):
+            db.session.rollback()
+            db.session.flush()
         except Exception as ex:
-            print ex
-
+            print ex.message
+            db.session.rollback()
+            db.session.flush()
 
     return render_template('index.html', dato=dato)
 
