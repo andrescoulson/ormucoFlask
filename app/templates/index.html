@@ -31,13 +31,23 @@
                 alert("Please provide your name!");
                 document.form.name.focus();
                 return false;
+            } else if (!(/^[a-zA-Z]{1,}$/.test(document.form.name.value))) {
+                alert("Error min 1 letter. Only letters.");
+                document.form.name.focus();
+                return false;
             }
 
             if (document.form.color.value == "") {
                 alert("Please provide your Favorite color!");
                 document.form.color.focus();
                 return false;
+            }else if (!(/^[a-zA-Z]{1,}$/.test(document.form.color.value))) {
+                alert("Error min 1 letter. Only letters.");
+               document.form.color.focus();
+                return false;
             }
+
+
             if (!document.form.cats_dogs.value) {
                 alert("Cats or Dogs ?!");
                 document.form.cats_dogs.focus();
